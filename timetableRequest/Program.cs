@@ -15,8 +15,12 @@ namespace timetableRequest
             string username = Console.ReadLine();
             Console.WriteLine("Password: ");
             string password = Console.ReadLine();
-            Console.WriteLine("Room: '000202065'");
+            Console.WriteLine("Room: '000202065' or leave empty for 000202065");
             string room = Console.ReadLine();
+            if (room == "")
+            {
+                room = "000202065";
+            }
             Task t = new Task(() => HTTPStuff(username, password, room));
             t.Start();
             Console.ReadLine();
