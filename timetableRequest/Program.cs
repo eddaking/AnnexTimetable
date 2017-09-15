@@ -58,6 +58,7 @@ namespace timetableRequest
             // ... Read the string.
             string result = await pageContent.ReadAsStringAsync();
 
+            //strip the html to get the form action, and inputs
             var body = result.Split(new string[] { "<body>" }, StringSplitOptions.None)[1].Split(new string[] { "</body>" }, StringSplitOptions.None);
             var inputs = body[0].Split(new string[] { "<input" }, StringSplitOptions.None);
 
@@ -65,6 +66,7 @@ namespace timetableRequest
 
             var nameVal = new Dictionary<string, string> { };
 
+            //split the inputs into name and val for resending
             var name = "";
             var val = "";
 
@@ -73,6 +75,7 @@ namespace timetableRequest
                 name = inputs[i].Split(new string[] { "name=\"" }, StringSplitOptions.None)[1].Split(new string[] { "\"" }, StringSplitOptions.None)[0];
                 val = inputs[i].Split(new string[] { "value=\"" }, StringSplitOptions.None)[1].Split(new string[] { "\"" }, StringSplitOptions.None)[0];
 
+                //html decode to replace &lt with < etc
                 val = WebUtility.HtmlDecode(val);
 
                 nameVal.Add(name, val);
